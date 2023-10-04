@@ -1,0 +1,56 @@
+version: '3.4'
+
+services:
+  graphqlapi:
+    image: ${DOCKER_REGISTRY-}graphqlapi
+    build:
+      context: .
+      dockerfile: GraphQLApi/Dockerfile
+    networks:
+      - api
+    ports:
+      - "63496:80" 
+      - "63497:443" 
+    container_name: graphqlapi
+
+  travelagencyapis:
+    image: ${DOCKER_REGISTRY-}travelagencyapis
+    build:
+      context: .
+      dockerfile: CustomersAPI/Dockerfile
+    networks:
+      - api      
+    ports:
+      - "63494:80" 
+      - "63495:443" 
+    container_name: travelagencyapis 
+
+  customerfileapi:
+    image: ${DOCKER_REGISTRY-}customerfileapi
+    build:
+      context: .
+      dockerfile: CustomerFileAPI/Dockerfile
+    networks:
+      - api      
+    ports:
+      - "63498:80" 
+      - "63499:443" 
+    container_name: customerfileapi
+
+  productapi:
+    image: ${DOCKER_REGISTRY-}productapi
+    build:
+      context: .
+      dockerfile: ProductAPI/Dockerfile
+    networks:
+      - api      
+    ports:
+      - "63492:80" 
+      - "63493:443" 
+    container_name: productapi
+
+networks:    
+  api:
+    driver: bridge
+
+
